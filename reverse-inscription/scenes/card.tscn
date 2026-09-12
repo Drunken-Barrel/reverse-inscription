@@ -3,6 +3,96 @@
 [ext_resource type="Script" uid="uid://pnbjuma3gtfk" path="res://scripts/card.gd" id="1_6u4wf"]
 [ext_resource type="Texture2D" uid="uid://dwlpq7mxi2lsq" path="res://sprites/icon.svg" id="1_d81rb"]
 
+[sub_resource type="Animation" id="Animation_6u4wf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardArt:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(74, 88)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardArt:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_kg30u"]
+resource_name = "attack_down"
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardArt:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(74, 88), Vector2(0, 131), Vector2(74, 206), Vector2(74, 88)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardArt:rotation")
+tracks/1/interp = 4
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.34906584, 0.34906584, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ktuci"]
+resource_name = "attack_up"
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardArt:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(74, 88), Vector2(0, 45), Vector2(74, -30), Vector2(74, 88)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardArt:rotation")
+tracks/1/interp = 4
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.34906584, 0.34906584, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kg30u"]
+_data = {
+&"RESET": SubResource("Animation_6u4wf"),
+&"attack_down": SubResource("Animation_kg30u"),
+&"attack_up": SubResource("Animation_ktuci")
+}
+
 [node name="Card" type="Control" unique_id=285598516]
 custom_minimum_size = Vector2(150, 200)
 layout_mode = 3
@@ -18,6 +108,7 @@ offset_bottom = 23.0
 text = "filler"
 
 [node name="CardArt" type="Sprite2D" parent="." unique_id=1153674638]
+z_index = 1
 position = Vector2(74, 88)
 texture = ExtResource("1_d81rb")
 
@@ -38,3 +129,6 @@ offset_top = 157.0
 offset_right = 137.0
 offset_bottom = 180.0
 text = "HP: #/#"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1573373407]
+libraries/ = SubResource("AnimationLibrary_kg30u")
