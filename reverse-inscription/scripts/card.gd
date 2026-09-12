@@ -10,7 +10,10 @@ extends Control
 	set(value):
 		card_name = value
 		# update display
-		CardName.text = value
+		if CardName != null:
+			CardName.text = value
+		else:
+			$CardName.text = value
 @export var lane: int = 0:
 	set(value):
 		lane = value
@@ -31,12 +34,18 @@ extends Control
 			# do dying things
 		health = value
 		# update display
-		Health.text = "HP: " + str(health) + "/" + str(max_health)
+		if Health != null:
+			Health.text = "HP: " + str(health) + "/" + str(max_health)
+		else:
+			$Health.text = "HP: " + str(health) + "/" + str(max_health)
 @export var strength: int = 0:
 	set(value):
 		strength = value
 		# update display
-		Strength.text = "HP: " + str(strength)
+		if Strength != null:
+			Strength.text = "HP: " + str(strength)
+		else:
+			$Strength.text = "HP: " + str(strength)
 @export var ability: String = "empty":
 	set(value):
 		ability = value

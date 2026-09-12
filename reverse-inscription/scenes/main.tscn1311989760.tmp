@@ -29,17 +29,18 @@ layout_mode = 2
 
 [node name="Card" parent="VBoxContainer/BoxContainer" unique_id=285598516 instance=ExtResource("1_o5qli")]
 layout_mode = 2
-card_name = "Timmy"
+card_name = "timmy"
 side = 1
 max_health = 5
+health = 5
 strength = 1
 
 [node name="Card2" parent="VBoxContainer/BoxContainer" unique_id=1216686598 instance=ExtResource("1_o5qli")]
 layout_mode = 2
-card_name = "turtle"
 lane = 1
 side = 1
 max_health = 7
+health = 7
 strength = 2
 
 [node name="BoxContainer2" type="BoxContainer" parent="VBoxContainer" unique_id=810564099]
@@ -47,15 +48,11 @@ layout_mode = 2
 
 [node name="Card" parent="VBoxContainer/BoxContainer2" unique_id=597567821 instance=ExtResource("1_o5qli")]
 layout_mode = 2
-card_name = "mini Timmy"
-max_health = 3
+max_health = 4
+health = 4
 strength = 1
 
 [node name="Card2" parent="VBoxContainer/BoxContainer2" unique_id=337568040 instance=ExtResource("1_o5qli")]
 layout_mode = 2
-card_name = "bomb"
-lane = 1
-max_health = 1
-strength = 4
 
 [connection signal="pressed" from="CombatStarter" to="CombatStarter" method="_on_pressed"]
