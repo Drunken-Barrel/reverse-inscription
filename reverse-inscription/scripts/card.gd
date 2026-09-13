@@ -3,8 +3,6 @@ extends Control
 # pre-load all directories
 @onready var CardName: Label = $CardName
 @onready var CardArt: Sprite2D = $CardArt
-@onready var Health: Label = $Health
-@onready var Strength: Label = $Strength
 @onready var  PlayAnimation: AnimationPlayer = $AnimationPlayer
 
 # variables
@@ -36,22 +34,16 @@ extends Control
 			# do dying things
 		health = value
 		# update display
-		if Health != null:
-			Health.text = "HP: " + str(health) + "/" + str(max_health)
-		else:
-			$Health.text = "HP: " + str(health) + "/" + str(max_health)
+		StatUpdateManager.update_health_signal.emit(value)
 @export var strength: int = 0:
 	set(value):
+		# update display conditionally to prevent constant loops
+		if strength != value:
+			StatUpdateManager.update_strength_signal.emit(value)
 		strength = value
-		# update display
-		if Strength != null:
-			Strength.text = "STR: " + str(strength)
-		else:
-			$Strength.text = "STR: " + str(strength)
 @export var ability: String = "empty":
 	set(value):
 		ability = value
-		# update display
 
 func _ready() -> void:
 	PvpManager.begin_combat_signal.connect(attack_if_first)

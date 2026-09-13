@@ -2,6 +2,6 @@ extends Node
 
 # signals
 @warning_ignore("unused_signal")
-signal begin_combat_signal
+signal update_health_signal
 @warning_ignore("unused_signal")
-signal output_attack_signal
+signal update_strength_signal

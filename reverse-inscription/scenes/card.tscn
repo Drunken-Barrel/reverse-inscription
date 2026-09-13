@@ -94,11 +94,13 @@ _data = {
 }
 
 [node name="Card" type="Control" unique_id=285598516]
-custom_minimum_size = Vector2(150, 200)
+custom_minimum_size = Vector2(150, 250)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 1.0
+offset_top = -11.0
+offset_right = 151.0
+offset_bottom = 189.0
 script = ExtResource("1_6u4wf")
 
 [node name="CardName" type="Label" parent="." unique_id=1130430276]
@@ -113,22 +115,6 @@ position = Vector2(74, 88)
 texture = ExtResource("1_d81rb")
 
 [node name="AbilityArt" type="Sprite2D" parent="." unique_id=1861276575]
-
-[node name="Strength" type="Label" parent="." unique_id=1078202714]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 155.0
-offset_right = 69.0
-offset_bottom = 178.0
-text = "STR: #"
-
-[node name="Health" type="Label" parent="." unique_id=1246913001]
-layout_mode = 0
-offset_left = 79.0
-offset_top = 157.0
-offset_right = 137.0
-offset_bottom = 180.0
-text = "HP: #/#"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1573373407]
 libraries/ = SubResource("AnimationLibrary_kg30u")
