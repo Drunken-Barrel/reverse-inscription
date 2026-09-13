@@ -22,25 +22,20 @@ extends Control
 	set(value):
 		side = value
 		# move into position (I'll figure it out later)
-@export var max_health: int = 0:
-	set(value):
-		max_health = value
-		# match heath to max health to be prepared for combat (max health can only be changed before combat)
-		health = value
 @export var health: int = 0:
 	set(value):
-		if value < 0:
-			value = 0
-			# do dying things
-		health = value
-		# update display
-		StatUpdateManager.update_health_signal.emit(value)
+		# update conditionally to prevent constant loops
+		if health != value:
+			if value < 0:
+				value = 0
+			StatUpdateManager.update_health_signal.emit(value)
+			health = value
 @export var strength: int = 0:
 	set(value):
-		# update display conditionally to prevent constant loops
+		# update conditionally to prevent constant loops
 		if strength != value:
 			StatUpdateManager.update_strength_signal.emit(value)
-		strength = value
+			strength = value
 @export var ability: String = "empty":
 	set(value):
 		ability = value
