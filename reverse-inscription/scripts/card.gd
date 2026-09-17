@@ -109,14 +109,16 @@ func _on_ability_checker_area_entered(area: Area2D) -> void:
 func _on_health_checker_area_exited(area: Area2D) -> void:
 	# check if the area is the equipped stat block
 	if area == health_block:
-		# reset stat to 0 and forget block
+		# reset stat to 0 and forget block after a delay (BANDAID FIX)
+		await get_tree().create_timer(0.1).timeout
 		health = 0 
 		health_block = null
 
 func _on_strength_checker_area_exited(area: Area2D) -> void:
 	# check if the area is the equipped stat block
 	if area == strength_block:
-		# reset stat to 0 and forget block
+		# reset stat to 0 and forget block after a delay (BANDAID FIX)
+		await get_tree().create_timer(0.1).timeout
 		strength = 0 
 		strength_block = null
 
