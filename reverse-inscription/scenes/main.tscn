@@ -58,15 +58,15 @@ strength = 4
 [node name="StatBlockHolder" type="Node" parent="." unique_id=1382834529]
 
 [node name="StatBlock" parent="StatBlockHolder" unique_id=2098620062 instance=ExtResource("3_sugp2")]
-position = Vector2(1032, 159)
-max_stat_number = 1
+position = Vector2(840, 263)
+stat_number = 2
 
 [node name="StatBlock2" parent="StatBlockHolder" unique_id=1260606405 instance=ExtResource("3_sugp2")]
 position = Vector2(1048, 328)
-max_stat_number = 2
+stat_number = 1
 
 [node name="StatBlock3" parent="StatBlockHolder" unique_id=1693319414 instance=ExtResource("3_sugp2")]
 position = Vector2(921, 290)
-max_stat_number = 4
+stat_number = 4
 
 [connection signal="pressed" from="CombatStarter" to="CombatStarter" method="_on_pressed"]
