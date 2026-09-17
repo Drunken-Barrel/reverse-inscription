@@ -32,7 +32,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_kg30u"]
 resource_name = "attack_down"
-step = 0.016666668
+step = 0.0069444445
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -93,28 +93,62 @@ _data = {
 &"attack_up": SubResource("Animation_ktuci")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6u4wf"]
+
 [node name="Card" type="Control" unique_id=285598516]
-custom_minimum_size = Vector2(150, 250)
+custom_minimum_size = Vector2(250, 250)
 layout_mode = 3
 anchors_preset = 0
 offset_left = 1.0
 offset_top = -11.0
 offset_right = 151.0
 offset_bottom = 189.0
+mouse_behavior_recursive = 1
 script = ExtResource("1_6u4wf")
 
 [node name="CardName" type="Label" parent="." unique_id=1130430276]
+z_index = -1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "filler"
 
 [node name="CardArt" type="Sprite2D" parent="." unique_id=1153674638]
-z_index = 1
 position = Vector2(74, 88)
 texture = ExtResource("1_d81rb")
 
-[node name="AbilityArt" type="Sprite2D" parent="." unique_id=1861276575]
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1573373407]
 libraries/ = SubResource("AnimationLibrary_kg30u")
+
+[node name="StrengthChecker" type="Area2D" parent="." unique_id=1420517349]
+position = Vector2(9, 240)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StrengthChecker" unique_id=1520768769]
+shape = SubResource("RectangleShape2D_6u4wf")
+
+[node name="HealthChecker" type="Area2D" parent="." unique_id=1846154166]
+position = Vector2(139, 240)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthChecker" unique_id=2118002555]
+shape = SubResource("RectangleShape2D_6u4wf")
+
+[node name="AbilityChecker" type="Area2D" parent="." unique_id=409610838]
+position = Vector2(72, 155)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AbilityChecker" unique_id=1278558313]
+shape = SubResource("RectangleShape2D_6u4wf")
+
+[node name="Health" type="Label" parent="." unique_id=1451152083]
+layout_mode = 0
+offset_left = 115.0
+offset_top = 185.0
+offset_right = 155.0
+offset_bottom = 208.0
+text = "HP:"
+
+[node name="Strength" type="Label" parent="." unique_id=1625081317]
+layout_mode = 0
+offset_top = 184.0
+offset_right = 40.0
+offset_bottom = 207.0
+text = "STR:"

@@ -17,14 +17,10 @@ config/icon="res://sprites/icon.svg"
 
 [autoload]
 
-PvpManager="*uid://cblo6getvspq1"
-StatUpdateManager="*uid://d2qh5xfqcljd4"
+SignalManager="*uid://cblo6getvspq1"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
-window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [physics]

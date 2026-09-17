@@ -1,4 +1,5 @@
 extends Button
 
+# start combat on click
 func _on_pressed() -> void:
-	PvpManager.begin_combat_signal.emit()
+	SignalManager.begin_combat_signal.emit()

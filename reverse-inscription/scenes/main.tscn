@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b0k6oywrtutme" path="res://scripts/combat_starter.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bhsldu4ldcyfx" path="res://scenes/card.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://cnjeco5r213ms" path="res://scenes/stat_block.tscn" id="3_sugp2"]
 
 [node name="Main" type="Node" unique_id=2021463954]
 
@@ -13,7 +14,7 @@ offset_bottom = 54.0
 text = "Begin combat"
 script = ExtResource("1_0wfyh")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=362316508]
+[node name="GameBoard" type="VBoxContainer" parent="." unique_id=362316508]
 anchors_preset = -1
 anchor_left = 0.141
 anchor_top = 0.097
@@ -24,38 +25,48 @@ offset_top = 0.14399719
 offset_right = -0.088012695
 offset_bottom = -0.2960205
 
-[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer" unique_id=1239065155]
+[node name="Side1" type="BoxContainer" parent="GameBoard" unique_id=1239065155]
 layout_mode = 2
 
-[node name="Card" parent="VBoxContainer/BoxContainer" unique_id=285598516 instance=ExtResource("1_o5qli")]
+[node name="Card" parent="GameBoard/Side1" unique_id=285598516 instance=ExtResource("1_o5qli")]
 layout_mode = 2
 card_name = "Timmy"
 side = 1
-max_health = 5
 strength = 1
 
-[node name="Card2" parent="VBoxContainer/BoxContainer" unique_id=1216686598 instance=ExtResource("1_o5qli")]
+[node name="Card2" parent="GameBoard/Side1" unique_id=1216686598 instance=ExtResource("1_o5qli")]
 layout_mode = 2
 card_name = "turtle"
 lane = 1
 side = 1
-max_health = 7
 strength = 2
 
-[node name="BoxContainer2" type="BoxContainer" parent="VBoxContainer" unique_id=810564099]
+[node name="Side0" type="BoxContainer" parent="GameBoard" unique_id=810564099]
 layout_mode = 2
 
-[node name="Card" parent="VBoxContainer/BoxContainer2" unique_id=597567821 instance=ExtResource("1_o5qli")]
+[node name="Card" parent="GameBoard/Side0" unique_id=597567821 instance=ExtResource("1_o5qli")]
 layout_mode = 2
 card_name = "mini Timmy"
-max_health = 3
 strength = 1
 
-[node name="Card2" parent="VBoxContainer/BoxContainer2" unique_id=337568040 instance=ExtResource("1_o5qli")]
+[node name="Card2" parent="GameBoard/Side0" unique_id=337568040 instance=ExtResource("1_o5qli")]
 layout_mode = 2
 card_name = "bomb"
 lane = 1
-max_health = 1
 strength = 4
+
+[node name="StatBlockHolder" type="Node" parent="." unique_id=1382834529]
+
+[node name="StatBlock" parent="StatBlockHolder" unique_id=2098620062 instance=ExtResource("3_sugp2")]
+position = Vector2(840, 263)
+stat_number = 2
+
+[node name="StatBlock2" parent="StatBlockHolder" unique_id=1260606405 instance=ExtResource("3_sugp2")]
+position = Vector2(1048, 328)
+stat_number = 1
+
+[node name="StatBlock3" parent="StatBlockHolder" unique_id=1693319414 instance=ExtResource("3_sugp2")]
+position = Vector2(921, 290)
+stat_number = 4
 
 [connection signal="pressed" from="CombatStarter" to="CombatStarter" method="_on_pressed"]
