@@ -25,6 +25,7 @@ var user: Node = null
 
 func _ready() -> void:
 	# connect signals
+	SignalManager.clear_slot_signal.connect(_clear_slot)
 	input_event.connect(_on_input_event)
 	area_entered.connect(_on_area_entered)
 	area_exited.connect(_on_area_exited)
@@ -37,20 +38,19 @@ func _process(_delta: float) -> void:
 	elif user != null:
 		global_position = user.global_position
 
-# handles mouse inputs
-func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			dragging = true
-		else:
-			dragging = false
+# function called whenever a stat block is placed into a slot to remove other stat blocks from it
+func _clear_slot(area: Area2D) -> void:
+	# check if the stat block running the code is in the space being taken by the signal sending stat block
+	if user == area:
+		# move to a default position
+		global_position = Vector2(1000,200)
 
 # function called when the card this is attached to sends a health update signal
-func _update_health(value: int):
+func _update_health(value: int) -> void:
 	stat_number = value
 
 # function called when the card this is attached to sends a strength update signal
-func _update_strength(value: int):
+func _update_strength(value: int) -> void:
 	stat_number = value
 
 func _on_area_entered(area: Area2D) -> void:
@@ -60,8 +60,9 @@ func _on_area_entered(area: Area2D) -> void:
 	if parent != null:
 		# check if the area is a child of a card
 		if parent.name.contains("Card") and parent is Control:
-			# save the current user
+			# save the current user and send a signal to kick out any other stat block that could currently be in the slot
 			user = area
+			SignalManager.clear_slot_signal.emit(user)
 			# check if the area is a health or strength slot and connect the matching signal if so
 			if area.name.contains("HealthChecker"):
 				parent.update_health_signal.connect(_update_health)
@@ -80,3 +81,11 @@ func _on_area_exited(area: Area2D) -> void:
 			parent.update_strength_signal.disconnect(_update_strength)
 		# forget the user
 		user = null
+
+# handles mouse inputs
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			dragging = true
+		else:
+			dragging = false
