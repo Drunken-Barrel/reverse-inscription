@@ -23,6 +23,11 @@ SignalManager="*uid://cblo6getvspq1"
 
 window/stretch/mode="canvas_items"
 
+[layer_names]
+
+2d_physics/layer_1="unequipped"
+2d_physics/layer_2="equipped"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

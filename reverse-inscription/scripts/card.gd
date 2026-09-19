@@ -5,6 +5,9 @@ signal update_strength_signal
 
 # pre-load all directories
 @onready var CardName: Label = $CardName
+@onready var HealthChecker: Area2D = $HealthChecker
+@onready var StrengthChecker: Area2D = $StrengthChecker
+@onready var AbilityChecker: Area2D = $AbilityChecker
 @onready var CardArt: Sprite2D = $CardArt
 @onready var  PlayAnimation: AnimationPlayer = $AnimationPlayer
 
@@ -27,20 +30,24 @@ signal update_strength_signal
 	set(value):
 		side = value
 		# move into position (I'll figure it out later)
-@export var health: int = 0:
+var health: int = 0:
 	set(value):
 		# cap minimum health at 0
 		if value < 0:
 			value = 0
-		update_health_signal.emit(value)
+		# if equipped send a signal to the equipped block to change value
+		if health_block != null:
+			update_health_signal.emit(value)
 		health = value
-@export var strength: int = 0:
+var strength: int = 0:
 	set(value):
 		# cap minimum strength at 0
 		if value < 0:
 			value = 0
-		update_strength_signal.emit(value)
-		health = value
+		# if equipped send a signal to the equipped block to change value
+		if strength_block != null:
+			update_strength_signal.emit(value)
+		strength = value
 @export var ability: String = "null":
 	set(value):
 		ability = value
@@ -91,6 +98,9 @@ func _on_health_checker_area_entered(area: Area2D) -> void:
 		# copy the stat from it and save it
 		health = area.stat_number
 		health_block = area
+		set_equipped(HealthChecker,true)
+		# connect the stat update signal to the corresponding stat
+		health_block.update_stat_number_signal.connect(func(value: int): health = value)
 
 func _on_strength_checker_area_entered(area: Area2D) -> void:
 	# check if the area is a stat block
@@ -98,6 +108,9 @@ func _on_strength_checker_area_entered(area: Area2D) -> void:
 		# copy the stat from it and save it
 		strength = area.stat_number
 		strength_block = area
+		set_equipped(StrengthChecker,true)
+		# connect the stat update signal to the corresponding stat
+		strength_block.update_stat_number_signal.connect(func(value: int): strength = value)
 
 func _on_ability_checker_area_entered(area: Area2D) -> void:
 	# check if the area is a stat block
@@ -105,26 +118,40 @@ func _on_ability_checker_area_entered(area: Area2D) -> void:
 		# copy the ability from it and save it
 		ability = area.ability
 		ability_block = area
+		set_equipped(AbilityChecker,true)
 
 func _on_health_checker_area_exited(area: Area2D) -> void:
 	# check if the area is the equipped stat block
 	if area == health_block:
-		# reset stat to 0 and forget block after a delay (BANDAID FIX)
-		await get_tree().create_timer(0.1).timeout
-		health = 0 
+		# disconnect the attached signal
+		if health_block.update_stat_number_signal.is_connected(func(value: int): health = value):
+			health_block.update_stat_number_signal.disconnect(func(value: int): health = value)
+		# reset stat to 0 and forget block
 		health_block = null
+		set_equipped(HealthChecker,false)
+		health = 0
 
 func _on_strength_checker_area_exited(area: Area2D) -> void:
 	# check if the area is the equipped stat block
 	if area == strength_block:
-		# reset stat to 0 and forget block after a delay (BANDAID FIX)
-		await get_tree().create_timer(0.1).timeout
-		strength = 0 
+		# disconnect the attached signal
+		if strength_block.update_stat_number_signal.is_connected(func(value: int): strength = value):
+			strength_block.update_stat_number_signal.disconnect(func(value: int): strength = value)
+		# reset stat to 0 and forget block
 		strength_block = null
+		set_equipped(StrengthChecker,false)
+		strength = 0
 
 func _on_ability_checker_area_exited(area: Area2D) -> void:
 	# check if the area is the equipped stat block
 	if area == ability_block:
 		# reset stat to 0 and forget block
-		ability = "null"
 		ability_block = null
+		set_equipped(AbilityChecker,false)
+
+# function to more cleanly change collision layers on checkers, takes the path and status as arguments
+func set_equipped(node: Area2D,equipped: bool) -> void:
+	node.set_collision_layer_value(1,!equipped)
+	node.set_collision_mask_value(1,!equipped)
+	node.set_collision_layer_value(2,equipped)
+	node.set_collision_mask_value(2,equipped)

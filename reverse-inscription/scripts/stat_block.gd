@@ -1,4 +1,6 @@
 extends Area2D
+# signals
+signal update_stat_number_signal
 
 # pre-load all directories
 @onready var StatNumber: Label = $StatNumber
@@ -10,9 +12,12 @@ extends Area2D
 		max_stat_number = value
 		# also sets the stat number to match
 		stat_number = value
-var stat_number: int = -1:
+@export var stat_number: int = -1:
 	set(value):
 		stat_number = value
+		# if equipped and set to max send a signal to the equipped card to change value
+		if user != null and value == max_stat_number:
+			update_stat_number_signal.emit(value)
 		# update display
 		if StatNumber != null:
 			StatNumber.text = str(value)
@@ -28,6 +33,7 @@ func _ready() -> void:
 	input_event.connect(_on_input_event)
 	area_entered.connect(_on_area_entered)
 	area_exited.connect(_on_area_exited)
+	SignalManager.reset_stat_block_signal.connect(_reset)
 
 func _process(_delta: float) -> void:
 	# move to the cursor position when being dragged
@@ -47,11 +53,13 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 
 # function called when the card this is attached to sends a health update signal
 func _update_health(value: int):
-	stat_number = value
+	if value != stat_number:
+		stat_number = value
 
 # function called when the card this is attached to sends a strength update signal
 func _update_strength(value: int):
-	stat_number = value
+	if value != stat_number:
+		stat_number = value
 
 func _on_area_entered(area: Area2D) -> void:
 	# define the parent
@@ -62,6 +70,7 @@ func _on_area_entered(area: Area2D) -> void:
 		if parent.name.contains("Card") and parent is Control:
 			# save the current user
 			user = area
+			set_equipped(true)
 			# check if the area is a health or strength slot and connect the matching signal if so
 			if area.name.contains("HealthChecker"):
 				parent.update_health_signal.connect(_update_health)
@@ -80,3 +89,14 @@ func _on_area_exited(area: Area2D) -> void:
 			parent.update_strength_signal.disconnect(_update_strength)
 		# forget the user
 		user = null
+		set_equipped(false)
+
+# function to more cleanly change collision layers
+func set_equipped(equipped: bool) -> void:
+	set_collision_layer_value(1,!equipped)
+	set_collision_mask_value(1,!equipped)
+	set_collision_layer_value(2,equipped)
+	set_collision_mask_value(2,equipped)
+
+func _reset():
+	stat_number = max_stat_number

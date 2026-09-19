@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b0k6oywrtutme" path="res://scripts/combat_starter.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bhsldu4ldcyfx" path="res://scenes/card.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://bm5yxwfb4kkiy" path="res://scripts/stat_block_reset.gd" id="2_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cnjeco5r213ms" path="res://scenes/stat_block.tscn" id="3_sugp2"]
 
 [node name="Main" type="Node" unique_id=2021463954]
@@ -13,6 +14,14 @@ offset_right = 135.0
 offset_bottom = 54.0
 text = "Begin combat"
 script = ExtResource("1_0wfyh")
+
+[node name="StatBlockReset" type="Button" parent="." unique_id=592490495]
+offset_left = 11.0
+offset_top = 62.0
+offset_right = 149.0
+offset_bottom = 93.0
+text = "Reset stat blocks"
+script = ExtResource("2_jyhfs")
 
 [node name="GameBoard" type="VBoxContainer" parent="." unique_id=362316508]
 anchors_preset = -1
@@ -32,14 +41,12 @@ layout_mode = 2
 layout_mode = 2
 card_name = "Timmy"
 side = 1
-strength = 1
 
 [node name="Card2" parent="GameBoard/Side1" unique_id=1216686598 instance=ExtResource("1_o5qli")]
 layout_mode = 2
 card_name = "turtle"
 lane = 1
 side = 1
-strength = 2
 
 [node name="Side0" type="BoxContainer" parent="GameBoard" unique_id=810564099]
 layout_mode = 2
@@ -47,13 +54,11 @@ layout_mode = 2
 [node name="Card" parent="GameBoard/Side0" unique_id=597567821 instance=ExtResource("1_o5qli")]
 layout_mode = 2
 card_name = "mini Timmy"
-strength = 1
 
 [node name="Card2" parent="GameBoard/Side0" unique_id=337568040 instance=ExtResource("1_o5qli")]
 layout_mode = 2
 card_name = "bomb"
 lane = 1
-strength = 4
 
 [node name="StatBlockHolder" type="Node" parent="." unique_id=1382834529]
 
@@ -67,6 +72,24 @@ max_stat_number = 2
 
 [node name="StatBlock3" parent="StatBlockHolder" unique_id=1693319414 instance=ExtResource("3_sugp2")]
 position = Vector2(921, 290)
+max_stat_number = 3
+
+[node name="StatBlock4" parent="StatBlockHolder" unique_id=980669452 instance=ExtResource("3_sugp2")]
+position = Vector2(1110, 72)
 max_stat_number = 4
 
-[connection signal="pressed" from="CombatStarter" to="CombatStarter" method="_on_pressed"]
+[node name="StatBlock5" parent="StatBlockHolder" unique_id=1514735435 instance=ExtResource("3_sugp2")]
+position = Vector2(1033, 230)
+max_stat_number = 5
+
+[node name="StatBlock6" parent="StatBlockHolder" unique_id=272448294 instance=ExtResource("3_sugp2")]
+position = Vector2(814, 108)
+max_stat_number = 6
+
+[node name="StatBlock7" parent="StatBlockHolder" unique_id=389771706 instance=ExtResource("3_sugp2")]
+position = Vector2(950, 145)
+max_stat_number = 7
+
+[node name="StatBlock8" parent="StatBlockHolder" unique_id=1241652016 instance=ExtResource("3_sugp2")]
+position = Vector2(842, 486)
+max_stat_number = 8
