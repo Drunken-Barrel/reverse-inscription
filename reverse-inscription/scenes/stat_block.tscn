@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ibda2g7mni8o"]
+[gd_scene format=3 uid="uid://cnjeco5r213ms"]
 
 [ext_resource type="Script" uid="uid://cmwf4sm2syrkp" path="res://scripts/stat_block.gd" id="1_gqgbt"]
 [ext_resource type="Texture2D" uid="uid://dwlpq7mxi2lsq" path="res://sprites/icon.svg" id="2_bh5yf"]
@@ -6,17 +6,18 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sxjpx"]
 size = Vector2(52, 52)
 
-[node name="StatBlock" type="Control" unique_id=1105579680]
-layout_mode = 3
-anchors_preset = 0
+[node name="StatBlock" type="Area2D" unique_id=2098620062]
+z_index = 1
 script = ExtResource("1_gqgbt")
 
-[node name="Background" type="Sprite2D" parent="." unique_id=2090639031]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=668341462]
+shape = SubResource("RectangleShape2D_sxjpx")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1801790679]
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_bh5yf")
 
-[node name="StatNumber" type="Label" parent="." unique_id=1000261640]
-layout_mode = 0
+[node name="StatNumber" type="Label" parent="." unique_id=689851041]
 offset_left = -32.0
 offset_top = -32.0
 offset_right = 32.0
@@ -27,9 +28,4 @@ text = "#"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AbilityArt" type="Sprite2D" parent="." unique_id=1079009230]
-
-[node name="CollisionArea" type="Area2D" parent="." unique_id=881308437]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea" unique_id=335741251]
-shape = SubResource("RectangleShape2D_sxjpx")
+[node name="AbilityArt" type="Sprite2D" parent="." unique_id=743049045]

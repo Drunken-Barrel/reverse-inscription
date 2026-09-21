@@ -1,10 +1,9 @@
-extends Control
+extends Area2D
 # signals
 signal update_stat_number_signal
 
 # pre-load all directories
 @onready var StatNumber: Label = $StatNumber
-@onready var CollisionArea: Area2D = $CollisionArea
 
 # variables
 # defaults to -1 because the display only updates on change and setting it from 0 to 0 doesn't count as a change
@@ -31,8 +30,9 @@ var user: Node = null
 
 func _ready() -> void:
 	# connect signals
-	CollisionArea.area_entered.connect(_on_area_entered)
-	CollisionArea.area_exited.connect(_on_area_exited)
+	input_event.connect(_on_input_event)
+	area_entered.connect(_on_area_entered)
+	area_exited.connect(_on_area_exited)
 	SignalManager.reset_stat_block_signal.connect(_reset)
 
 func _process(_delta: float) -> void:
@@ -44,18 +44,12 @@ func _process(_delta: float) -> void:
 		global_position = user.global_position
 
 # handles mouse inputs
-func _gui_input(event: InputEvent) -> void:
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			print("Interacted with the top object!")
-			# stop objects below from receiving the same input
-			get_viewport().set_input_as_handled()
 			dragging = true
 		else:
 			dragging = false
-	if event is InputEventMouseMotion and dragging:
-		# Update the node's position based on global mouse movements
-		global_position = get_global_mouse_position()
 
 # function called when the card this is attached to sends a health update signal
 func _update_health(value: int):
@@ -99,10 +93,10 @@ func _on_area_exited(area: Area2D) -> void:
 
 # function to more cleanly change collision layers
 func set_equipped(equipped: bool) -> void:
-	CollisionArea.set_collision_layer_value(1,!equipped)
-	CollisionArea.set_collision_mask_value(1,!equipped)
-	CollisionArea.set_collision_layer_value(2,equipped)
-	CollisionArea.set_collision_mask_value(2,equipped)
+	set_collision_layer_value(1,!equipped)
+	set_collision_mask_value(1,!equipped)
+	set_collision_layer_value(2,equipped)
+	set_collision_mask_value(2,equipped)
 
 func _reset():
 	stat_number = max_stat_number
