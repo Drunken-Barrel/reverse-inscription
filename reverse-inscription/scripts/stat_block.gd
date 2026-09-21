@@ -27,6 +27,9 @@ signal update_stat_number_signal
 @export var ability: String = "null"
 var dragging: bool = false
 var user: Node = null
+# controls if the block can get dragged, gets set to false if it is a locked block or combat is running
+@export var default_draggable: bool = true
+var draggable: bool = default_draggable
 # used to stop blocks from getting stuck in stacks, randomises each time to remove any chance of permanent stacking
 var z_index_priority: int = randi()
 
@@ -37,6 +40,8 @@ func _ready() -> void:
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 	SignalManager.reset_stat_block_signal.connect(_reset)
+	SignalManager.begin_combat_signal.connect(_on_combat_start)
+	SignalManager.end_combat_signal.connect(_on_combat_end)
 
 func _process(_delta: float) -> void:
 	# move to the cursor position when being dragged
@@ -104,7 +109,14 @@ func _on_mouse_exited() -> void:
 	InputManager.unregister_stat_block(self)
 
 func interact(event) -> void:
-	if event.pressed:
+	if event.pressed and draggable:
 		dragging = true
 	else:
 		dragging = false
+
+# following 2 functions stop blocks from being dragged mid combat
+func _on_combat_start() -> void:
+	draggable = false
+
+func _on_combat_end() -> void:
+	draggable = default_draggable

@@ -6,8 +6,8 @@ func register_stat_block(stat_block) -> void:
 	if not hovered_stat_blocks.has(stat_block):
 		hovered_stat_blocks.append(stat_block)
 
-func unregister_stat_block(obj) -> void:
-	hovered_stat_blocks.erase(obj)
+func unregister_stat_block(stat_block) -> void:
+	hovered_stat_blocks.erase(stat_block)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

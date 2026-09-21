@@ -73,6 +73,7 @@ func _ready() -> void:
 func _attack_if_first() -> void:
 	if side == 0:
 		attack()
+		SignalManager.add_lane(lane)
 
 func attack() -> void:
 	# use the correct animation based on side
@@ -88,9 +89,11 @@ func _take_damage(attacker_lane: int,attacker_side: int,attacker_strength: int) 
 	# take damage if the signal was sent from the directly opposing card
 	if attacker_side != side and attacker_lane == lane:
 		health -= attacker_strength
-		# relatiate if alive
+		# relatiate if alive or end the lane's combat if not
 		if health > 0:
 			attack()
+		else:
+			SignalManager.remove_lane(lane)
 
 func _on_health_checker_area_entered(area: Area2D) -> void:
 	# check if the area is a stat block
