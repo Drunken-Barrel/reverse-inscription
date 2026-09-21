@@ -27,12 +27,15 @@ signal update_stat_number_signal
 @export var ability: String = "null"
 var dragging: bool = false
 var user: Node = null
+# used to stop blocks from getting stuck in stacks, randomises each time to remove any chance of permanent stacking
+var z_index_priority: int = randi()
 
 func _ready() -> void:
 	# connect signals
-	input_event.connect(_on_input_event)
 	area_entered.connect(_on_area_entered)
 	area_exited.connect(_on_area_exited)
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
 	SignalManager.reset_stat_block_signal.connect(_reset)
 
 func _process(_delta: float) -> void:
@@ -42,14 +45,6 @@ func _process(_delta: float) -> void:
 	# if in use move to the position of the user
 	elif user != null:
 		global_position = user.global_position
-
-# handles mouse inputs
-func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			dragging = true
-		else:
-			dragging = false
 
 # function called when the card this is attached to sends a health update signal
 func _update_health(value: int):
@@ -100,3 +95,16 @@ func set_equipped(equipped: bool) -> void:
 
 func _reset():
 	stat_number = max_stat_number
+
+# following 3 functions are used to processing user input
+func _on_mouse_entered() -> void:
+	InputManager.register_stat_block(self)
+
+func _on_mouse_exited() -> void:
+	InputManager.unregister_stat_block(self)
+
+func interact(event) -> void:
+	if event.pressed:
+		dragging = true
+	else:
+		dragging = false
