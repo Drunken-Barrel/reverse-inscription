@@ -5,6 +5,9 @@ signal update_stat_number_signal
 # pre-load all directories
 @onready var StatNumber: Label = $StatNumber
 
+# constants and enums
+enum AbilityList {NULL}
+
 # variables
 # defaults to -1 because the display only updates on change and setting it from 0 to 0 doesn't count as a change
 @export var max_stat_number: int = -1:
@@ -12,7 +15,7 @@ signal update_stat_number_signal
 		max_stat_number = value
 		# also sets the stat number to match
 		stat_number = value
-@export var stat_number: int = -1:
+var stat_number: int = -1:
 	set(value):
 		stat_number = value
 		# if equipped and set to max send a signal to the equipped card to change value
@@ -24,7 +27,7 @@ signal update_stat_number_signal
 		else:
 			$StatNumber.text = str(value)
 # if ability is null it is a number block, otherwise it is an ability block
-@export var ability: String = "null"
+@export var ability: int = AbilityList.NULL
 var dragging: bool = false
 var user: Node = null
 # controls if the block can get dragged, gets set to false if it is a locked block or combat is running
@@ -68,14 +71,16 @@ func _on_area_entered(area: Area2D) -> void:
 	if parent != null:
 		# check if the area is a child of a card
 		if parent.name.contains("Card") and parent is Control:
-			# save the current user
-			user = area
-			set_equipped(true)
-			# check if the area is a health or strength slot and connect the matching signal if so
-			if area.name.contains("HealthChecker"):
-				parent.update_health_signal.connect(_update_health)
-			elif area.name.contains("StrengthChecker"):
-				parent.update_strength_signal.connect(_update_strength)
+			# check if the area matches the data type of this block (value or ability)
+			if (area.name.contains("AbilityChecker") and ability != AbilityList.NULL) or (!area.name.contains("AbilityChecker") and max_stat_number >= 0):
+				# save the current user
+				user = area
+				set_equipped(true)
+				# check if the area is a health or strength slot and connect the matching signal if so
+				if area.name.contains("HealthChecker"):
+					parent.update_health_signal.connect(_update_health)
+				elif area.name.contains("StrengthChecker"):
+					parent.update_strength_signal.connect(_update_strength)
 
 func _on_area_exited(area: Area2D) -> void:
 	# check if it left the user's area
@@ -101,7 +106,7 @@ func set_equipped(equipped: bool) -> void:
 func _reset():
 	stat_number = max_stat_number
 
-# following 3 functions are used to processing user input
+# following 3 functions are used to process user input
 func _on_mouse_entered() -> void:
 	InputManager.register_stat_block(self)
 

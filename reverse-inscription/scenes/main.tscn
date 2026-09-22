@@ -93,3 +93,11 @@ max_stat_number = 7
 [node name="StatBlock8" parent="StatBlockHolder" unique_id=1241652016 instance=ExtResource("3_sugp2")]
 position = Vector2(842, 486)
 max_stat_number = 8
+
+[node name="StatBlock9" parent="StatBlockHolder" unique_id=1000367861 instance=ExtResource("3_sugp2")]
+position = Vector2(1082, 521)
+ability = 1
+
+[node name="StatBlock10" parent="StatBlockHolder" unique_id=1390574656 instance=ExtResource("3_sugp2")]
+position = Vector2(1057, 606)
+ability = 2
