@@ -18,18 +18,18 @@ var stat_number: int = -1:
 		# if equipped and set to max send a signal to the equipped card to change value
 		if user != null and value == max_stat_number:
 			update_stat_number_signal.emit(value)
-		# update display
-		if StatNumber != null:
-			StatNumber.text = str(value)
-		else:
-			$StatNumber.text = str(value)
+		# update display if it should be updated (ability blocks are locked to -1)
+		if stat_number >= 0:
+			if StatNumber != null:
+				StatNumber.text = str(value)
+			else:
+				$StatNumber.text = str(value)
 # if ability is null it is a number block, otherwise it is an ability block
 @export var ability: int = AbilityLister.AbilityList.NULL
 var dragging: bool = false
 var user: Node = null
-# controls if the block can get dragged, gets set to false if it is a locked block or combat is running
-@export var default_draggable: bool = true
-var draggable: bool = default_draggable
+# controls if the block can get dragged, gets set to false if combat is running
+var draggable: bool = true
 # used to stop blocks from getting stuck in stacks, randomises each time to remove any chance of permanent stacking
 var z_index_priority: int = randi()
 
@@ -39,9 +39,8 @@ func _ready() -> void:
 	area_exited.connect(_on_area_exited)
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
-	SignalManager.reset_stat_block_signal.connect(_reset)
+	SignalManager.reset_signal.connect(_on_reset)
 	SignalManager.begin_combat_signal.connect(_on_combat_start)
-	SignalManager.end_combat_signal.connect(_on_combat_end)
 
 func _process(_delta: float) -> void:
 	# move to the cursor position when being dragged
@@ -100,8 +99,9 @@ func set_equipped(equipped: bool) -> void:
 	set_collision_layer_value(2,equipped)
 	set_collision_mask_value(2,equipped)
 
-func _reset():
+func _on_reset():
 	stat_number = max_stat_number
+	draggable = true
 
 # following 3 functions are used to process user input
 func _on_mouse_entered() -> void:
@@ -119,6 +119,3 @@ func interact(event) -> void:
 # following 2 functions stop blocks from being dragged mid combat
 func _on_combat_start() -> void:
 	draggable = false
-
-func _on_combat_end() -> void:
-	draggable = default_draggable

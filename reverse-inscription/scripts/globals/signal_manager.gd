@@ -8,7 +8,7 @@ signal end_combat_signal
 @warning_ignore("unused_signal")
 signal output_attack_signal
 @warning_ignore("unused_signal")
-signal reset_stat_block_signal
+signal reset_signal
 
 # variables
 var lanes = Array()
