@@ -3,12 +3,13 @@ extends Node
 # signals
 @warning_ignore("unused_signal")
 signal begin_combat_signal
-@warning_ignore("unused_signal")
 signal end_combat_signal
 @warning_ignore("unused_signal")
 signal output_attack_signal
 @warning_ignore("unused_signal")
 signal reset_signal
+@warning_ignore("unused_signal")
+signal setup_level_signal
 
 # variables
 var lanes = Array()

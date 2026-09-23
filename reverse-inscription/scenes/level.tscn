@@ -1,3 +1,43 @@
 [gd_scene format=3 uid="uid://c1djtk0ed5wy"]
 
+[ext_resource type="Script" uid="uid://b0k6oywrtutme" path="res://scripts/combat_starter.gd" id="1_w7c3h"]
+[ext_resource type="Script" uid="uid://c0b547oguecyw" path="res://scripts/level.gd" id="1_w8frs"]
+[ext_resource type="Script" uid="uid://bm5yxwfb4kkiy" path="res://scripts/stat_block_reset.gd" id="2_w8frs"]
+
 [node name="Level" type="Node" unique_id=1520027210]
+script = ExtResource("1_w8frs")
+
+[node name="CombatStarter" type="Button" parent="." unique_id=849683326]
+offset_left = 21.0
+offset_top = 23.0
+offset_right = 135.0
+offset_bottom = 54.0
+text = "Begin combat"
+script = ExtResource("1_w7c3h")
+
+[node name="StatBlockReset" type="Button" parent="." unique_id=1998485309]
+offset_left = 11.0
+offset_top = 62.0
+offset_right = 149.0
+offset_bottom = 93.0
+text = "Reset stat blocks"
+script = ExtResource("2_w8frs")
+
+[node name="GameBoard" type="VBoxContainer" parent="." unique_id=1632491723]
+anchors_preset = -1
+anchor_left = 0.141
+anchor_top = 0.097
+anchor_right = 0.869
+anchor_bottom = 0.87700003
+offset_left = 0.56799316
+offset_top = 0.14399719
+offset_right = -0.088012695
+offset_bottom = -0.2960205
+
+[node name="Side1" type="BoxContainer" parent="GameBoard" unique_id=723827269]
+layout_mode = 2
+
+[node name="Side0" type="BoxContainer" parent="GameBoard" unique_id=1543252780]
+layout_mode = 2
+
+[node name="StatBlockHolder" type="Node" parent="." unique_id=1619141874]

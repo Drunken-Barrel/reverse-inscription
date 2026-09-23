@@ -31,9 +31,9 @@ stat_blocks = [{
 "value": 8
 }, {
 "ability": 1,
-"value": 0
+"value": -1
 }, {
 "ability": 2,
-"value": 0
+"value": -1
 }]
 metadata/_custom_type_script = "uid://dfcmqsnxvahgw"
