@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ct3fe338laoy5"]
+
+[ext_resource type="Script" uid="uid://ccwsobhoye74i" path="res://scripts/level_select.gd" id="1_3shnc"]
+
+[node name="LevelSelect" type="Node" unique_id=1044100688]
+script = ExtResource("1_3shnc")
+
+[node name="Level1Button" type="Button" parent="." unique_id=1893549083]
+offset_left = 30.0
+offset_top = 21.0
+offset_right = 92.0
+offset_bottom = 52.0
+text = "Level 1"

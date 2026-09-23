@@ -11,14 +11,15 @@ config_version=5
 [application]
 
 config/name="reverse_inscription"
-run/main_scene="uid://b8sadb08yjous"
+run/main_scene="uid://ggbp2pq8cyo2"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://sprites/icon.svg"
 
 [autoload]
 
-SignalManager="*uid://cblo6getvspq1"
 InputManager="*uid://thkr0tm2u0oi"
+SignalManager="*uid://cblo6getvspq1"
+SceneManager="*uid://d2wjr0jhu0ual"
 
 [display]
 
