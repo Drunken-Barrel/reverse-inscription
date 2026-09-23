@@ -5,6 +5,6 @@ class_name LevelInformation
 @export var stat_blocks: Array = [
 	{
 		"value": 0,
-		"ability": "filler"
+		"ability": AbilityLister.AbilityList.NULL
 	}
 ]

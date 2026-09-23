@@ -11,9 +11,6 @@ signal update_strength_signal
 @onready var CardArt: Sprite2D = $CardArt
 @onready var  PlayAnimation: AnimationPlayer = $AnimationPlayer
 
-# constants and enums
-enum AbilityList {NULL}
-
 # variables
 @export var card_name: String = "filler":
 	set(value):
@@ -51,7 +48,7 @@ var strength: int = 0:
 		if strength_block != null:
 			update_strength_signal.emit(value)
 		strength = value
-var ability: int = AbilityList.NULL
+var ability: int = AbilityLister.AbilityList.NULL
 var health_block: Node = null
 var strength_block: Node = null
 var ability_block: Node = null
@@ -122,7 +119,7 @@ func _on_strength_checker_area_entered(area: Area2D) -> void:
 func _on_ability_checker_area_entered(area: Area2D) -> void:
 	# check if the area is an ability holding stat block
 	if area.name.contains("StatBlock"):
-		if area.ability != AbilityList.NULL:
+		if area.ability != AbilityLister.AbilityList.NULL:
 			# copy the ability from it and save it
 			ability = area.ability
 			ability_block = area
@@ -156,7 +153,7 @@ func _on_ability_checker_area_exited(area: Area2D) -> void:
 		# reset stat to 0 and forget block
 		ability_block = null
 		set_equipped(AbilityChecker,false)
-		ability = AbilityList.NULL
+		ability = AbilityLister.AbilityList.NULL
 
 # function to more cleanly change collision layers on checkers, takes the path and status as arguments
 func set_equipped(node: Area2D,equipped: bool) -> void:

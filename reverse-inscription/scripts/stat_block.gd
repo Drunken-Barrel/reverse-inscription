@@ -5,9 +5,6 @@ signal update_stat_number_signal
 # pre-load all directories
 @onready var StatNumber: Label = $StatNumber
 
-# constants and enums
-enum AbilityList {NULL}
-
 # variables
 # defaults to -1 because the display only updates on change and setting it from 0 to 0 doesn't count as a change
 @export var max_stat_number: int = -1:
@@ -27,7 +24,7 @@ var stat_number: int = -1:
 		else:
 			$StatNumber.text = str(value)
 # if ability is null it is a number block, otherwise it is an ability block
-@export var ability: int = AbilityList.NULL
+@export var ability: int = AbilityLister.AbilityList.NULL
 var dragging: bool = false
 var user: Node = null
 # controls if the block can get dragged, gets set to false if it is a locked block or combat is running
@@ -72,7 +69,7 @@ func _on_area_entered(area: Area2D) -> void:
 		# check if the area is a child of a card
 		if parent.name.contains("Card") and parent is Control:
 			# check if the area matches the data type of this block (value or ability)
-			if (area.name.contains("AbilityChecker") and ability != AbilityList.NULL) or (!area.name.contains("AbilityChecker") and max_stat_number >= 0):
+			if (area.name.contains("AbilityChecker") and ability != AbilityLister.AbilityList.NULL) or (!area.name.contains("AbilityChecker") and max_stat_number >= 0):
 				# save the current user
 				user = area
 				set_equipped(true)
