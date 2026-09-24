@@ -11,10 +11,3 @@ offset_top = 13.0
 offset_right = 112.0
 offset_bottom = 44.0
 text = "Level Select"
-
-[node name="QuitButton" type="Button" parent="." unique_id=1705984590]
-offset_left = 39.0
-offset_top = 56.0
-offset_right = 81.0
-offset_bottom = 87.0
-text = "Quit"
