@@ -13,5 +13,10 @@ class_name LevelInformation
 		"health": 0,
 		"strength": 0,
 		"ability": AbilityLister.AbilityList.NULL
+	},
+	Vector2i(0,1): {
+		"health": 0,
+		"strength": 0,
+		"ability": AbilityLister.AbilityList.NULL
 	}
 }
