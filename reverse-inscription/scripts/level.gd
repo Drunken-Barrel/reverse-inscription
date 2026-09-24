@@ -20,18 +20,25 @@ func _ready() -> void:
 	SignalManager.setup_level_signal.connect(_on_level_setup)
 
 func _on_level_setup(_level) -> void:
-	print("received: " + str(_level))
 	level = _level
 	# define the resource for this level
 	match level:
 		1:
 			level_information = load("uid://c4nwusowkpiu0")
-	# add as many cards as there are lanes to both sides
+	# add as many cards as there are lanes to both sides, changing their lane and side variables to match
 	for i in range(level_information.total_lanes):
 		var NewCard = Card.instantiate()
+		NewCard.lane = i
+		NewCard.side = 0
+		# set the name to contain Card for readability while still being unique
+		NewCard.name = "Card" + str(i)
 		Side0.add_child(NewCard)
 	for i in range(level_information.total_lanes):
 		var NewCard = Card.instantiate()
+		NewCard.lane = i
+		NewCard.side = 1
+		# set the name to contain Card for readability while still being unique
+		NewCard.name = "Card" + str(i)
 		Side1.add_child(NewCard)
 	# set the minimum stat block x to the number of lanes times 250 plus a buffer because cards are 250 wide
 	min_stat_block_x = level_information.total_lanes * 250 + stat_block_spacing * 2
@@ -50,6 +57,8 @@ func _on_level_setup(_level) -> void:
 			x_pos -= max_stat_block_x - min_stat_block_x
 			y_pos += stat_block_spacing
 		NewStatBlock.global_position = Vector2(x_pos,y_pos)
+		# set the name to contain StatBlock for readability while still being unique
+		NewStatBlock.name = "StatBlock" + str(ordinal_position)
 		StatBlockHolder.add_child(NewStatBlock)
 		# update the ordinal position for the next stat block
 		ordinal_position += 1

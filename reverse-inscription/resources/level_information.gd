@@ -8,3 +8,10 @@ class_name LevelInformation
 		"ability": AbilityLister.AbilityList.NULL
 	}
 ]
+@export var solution: Dictionary[Vector2i,Dictionary] = {
+	Vector2i(0,0): {
+		"health": 0,
+		"strength": 0,
+		"ability": AbilityLister.AbilityList.NULL
+	}
+}

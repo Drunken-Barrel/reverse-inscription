@@ -44,7 +44,7 @@ func _process(_delta: float) -> void:
 			get_tree().change_scene_to_packed(LoadedResource)
 			# if a level number was defined pass it onto the level
 			if level > 0:
-				await get_tree().create_timer(0.05).timeout
+				await get_tree().create_timer(0.1).timeout
 				SignalManager.setup_level_signal.emit(level)
 			# alert the loading screen that the level is loaded and to fade out
 			load_finished_signal.emit()

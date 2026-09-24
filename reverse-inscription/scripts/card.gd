@@ -21,15 +21,9 @@ signal update_strength_signal
 		else:
 			$CardName.text = value
 # tracks the lane the card is in, starting from 0
-@export var lane: int = 0:
-	set(value):
-		lane = value
-		# move into position (I'll figure it out later)
+@export var lane: int = 0
 # 0 is bottom and 1 is top
-@export var side: int = 0:
-	set(value):
-		side = value
-		# move into position (I'll figure it out later)
+@export var side: int = 0
 var health: int = 0:
 	set(value):
 		# cap minimum health at 0
