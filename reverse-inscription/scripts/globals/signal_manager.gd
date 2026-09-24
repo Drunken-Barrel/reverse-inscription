@@ -10,6 +10,8 @@ signal output_attack_signal
 signal reset_signal
 @warning_ignore("unused_signal")
 signal setup_level_signal
+@warning_ignore("unused_signal")
+signal combat_results_signal
 
 # variables
 var lanes = Array()

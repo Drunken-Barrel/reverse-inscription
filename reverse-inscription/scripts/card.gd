@@ -51,6 +51,8 @@ func _ready() -> void:
 	# connect signals
 	SignalManager.begin_combat_signal.connect(_attack_if_first)
 	SignalManager.output_attack_signal.connect(_take_damage)
+	# once combat is over send results to level
+	SignalManager.end_combat_signal.connect(func():SignalManager.combat_results_signal.emit(lane,side,health,strength,ability))
 	$HealthChecker.area_entered.connect(_on_health_checker_area_entered)
 	$StrengthChecker.area_entered.connect(_on_strength_checker_area_entered)
 	$AbilityChecker.area_entered.connect(_on_ability_checker_area_entered)

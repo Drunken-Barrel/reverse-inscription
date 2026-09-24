@@ -14,10 +14,12 @@ var min_stat_block_x: int
 @onready var max_stat_block_x: int = get_viewport().size.x - 30
 var min_stat_block_y: int = 100
 var stat_block_spacing: int = 75
+var combat_results: Dictionary[Vector2i,Dictionary]
 
 func _ready() -> void:
 	# connect signals
 	SignalManager.setup_level_signal.connect(_on_level_setup)
+	SignalManager.combat_results_signal.connect(_receive_combat_results)
 
 func _on_level_setup(_level) -> void:
 	level = _level
@@ -62,3 +64,22 @@ func _on_level_setup(_level) -> void:
 		StatBlockHolder.add_child(NewStatBlock)
 		# update the ordinal position for the next stat block
 		ordinal_position += 1
+
+# function to save each card's combat results to a dictionary of results
+func _receive_combat_results(card_lane,card_side,card_health,card_strength,card_ability) -> void:
+	combat_results.set(Vector2i(card_lane,card_side),{
+		"health": card_health,
+		"strength": card_strength,
+		"ability": card_ability
+	})
+	# if all combat results have been received check if the results match the solution
+	if combat_results.size() == level_information.total_lanes * 2:
+		_check_win()
+
+# checks if the combat result matches the solution after combat finishes
+func _check_win() -> void:
+	if level_information.solution.recursive_equal(combat_results,0):
+		print("win")
+	else:
+		print("lose")
+	combat_results.clear()
