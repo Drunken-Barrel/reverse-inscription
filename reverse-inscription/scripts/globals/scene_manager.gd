@@ -7,6 +7,7 @@ signal load_finished_signal
 # variables
 var LoadingScreen: PackedScene = preload("uid://fercaxx7jnee")
 var PauseScreen: PackedScene = preload("uid://bl0jxxiekg0nr")
+var pause_screen_active: bool = false
 var LoadedResource: PackedScene
 var level: int
 var scene_path: String
@@ -53,10 +54,12 @@ func _process(_delta: float) -> void:
 func _input(event):
 	if event.is_action_pressed("ui_escape"):
 		# check if there is currently a pause screen active
-		if !has_node("PauseScreen"):
+		if !pause_screen_active:
+			pause_screen_active = true
 			# create a pause screen
 			var NewPauseScreen = PauseScreen.instantiate()
 			add_child(NewPauseScreen)
 		else:
+			pause_screen_active = false
 			# remove the pause screen
 			$PauseScreen.queue_free()

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b8sadb08yjous"]
 
-[ext_resource type="Script" uid="uid://b0k6oywrtutme" path="res://scripts/combat_starter.gd" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://b0k6oywrtutme" path="res://scripts/combat_starter_button.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bhsldu4ldcyfx" path="res://scenes/card.tscn" id="1_o5qli"]
-[ext_resource type="Script" uid="uid://bm5yxwfb4kkiy" path="res://scripts/stat_block_reset.gd" id="2_jyhfs"]
+[ext_resource type="Script" uid="uid://bm5yxwfb4kkiy" path="res://scripts/stat_block_reset_button.gd" id="2_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cnjeco5r213ms" path="res://scenes/stat_block.tscn" id="3_sugp2"]
 
 [node name="Main" type="Node" unique_id=2021463954]

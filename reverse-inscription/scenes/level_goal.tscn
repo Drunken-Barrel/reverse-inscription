@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://crtg47lqvod8e"]
+
+[ext_resource type="Script" uid="uid://o0lk6sfqm6r2" path="res://scripts/level_goal.gd" id="1_dpp3b"]
+[ext_resource type="Texture2D" uid="uid://n30ho8l7enow" path="res://sprites/level1_goal.png" id="1_g75lt"]
+
+[node name="LevelGoal" type="Control" unique_id=1407750224]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_dpp3b")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=589162056]
+custom_minimum_size = Vector2(350, 0)
+custom_maximum_size = Vector2(350, -1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_g75lt")
+expand_mode = 4
+stretch_mode = 4

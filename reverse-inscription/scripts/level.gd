@@ -42,8 +42,8 @@ func _on_level_setup(_level) -> void:
 		# set the name to contain Card for readability while still being unique
 		NewCard.name = "Card" + str(i)
 		Side1.add_child(NewCard)
-	# set the minimum stat block x to the number of lanes times 250 plus a buffer because cards are 250 wide
-	min_stat_block_x = level_information.total_lanes * 250 + stat_block_spacing * 2
+	# set the minimum stat block x to the number of lanes times 250 because cards are 250 wide
+	min_stat_block_x = level_information.total_lanes * 250
 	# make a variable for tracking the ordinal position of stat blocks
 	var ordinal_position = 0
 	# add every stat block

@@ -1,43 +1,52 @@
 [gd_scene format=3 uid="uid://c1djtk0ed5wy"]
 
-[ext_resource type="Script" uid="uid://b0k6oywrtutme" path="res://scripts/combat_starter.gd" id="1_w7c3h"]
+[ext_resource type="Script" uid="uid://b0k6oywrtutme" path="res://scripts/combat_starter_button.gd" id="1_w7c3h"]
 [ext_resource type="Script" uid="uid://c0b547oguecyw" path="res://scripts/level.gd" id="1_w8frs"]
-[ext_resource type="Script" uid="uid://bm5yxwfb4kkiy" path="res://scripts/stat_block_reset.gd" id="2_w8frs"]
+[ext_resource type="Script" uid="uid://bm5yxwfb4kkiy" path="res://scripts/stat_block_reset_button.gd" id="2_w8frs"]
+[ext_resource type="Script" uid="uid://cm701afmhwkoe" path="res://scripts/toggle_level_goal_button.gd" id="4_mx8sn"]
 
 [node name="Level" type="Node" unique_id=1520027210]
 script = ExtResource("1_w8frs")
 
-[node name="CombatStarter" type="Button" parent="." unique_id=849683326]
-offset_left = 21.0
-offset_top = 23.0
-offset_right = 135.0
-offset_bottom = 54.0
+[node name="ButtonContainer" type="HBoxContainer" parent="." unique_id=1927597773]
+offset_left = 10.0
+offset_top = 13.0
+offset_right = 397.0
+offset_bottom = 53.0
+
+[node name="CombatStarterButton" type="Button" parent="ButtonContainer" unique_id=849683326]
+layout_mode = 2
 text = "Begin combat"
 script = ExtResource("1_w7c3h")
 
-[node name="StatBlockReset" type="Button" parent="." unique_id=1998485309]
-offset_left = 11.0
-offset_top = 62.0
-offset_right = 149.0
-offset_bottom = 93.0
+[node name="StatBlockResetButton" type="Button" parent="ButtonContainer" unique_id=1998485309]
+layout_mode = 2
 text = "Reset stat blocks"
 script = ExtResource("2_w8frs")
 
+[node name="ToggleLevelGoalButton" type="Button" parent="ButtonContainer" unique_id=1921267491]
+layout_mode = 2
+text = "Open level goal"
+script = ExtResource("4_mx8sn")
+
 [node name="GameBoard" type="VBoxContainer" parent="." unique_id=1632491723]
 anchors_preset = -1
-anchor_left = 0.141
-anchor_top = 0.097
-anchor_right = 0.869
-anchor_bottom = 0.87700003
-offset_left = 0.56799316
-offset_top = 0.14399719
-offset_right = -0.088012695
-offset_bottom = -0.2960205
+anchor_left = 0.016
+anchor_top = 0.12200001
+anchor_right = 0.016
+anchor_bottom = 0.12200001
+offset_left = 0.5679989
+offset_top = -0.056007385
+offset_right = 86.568
+offset_bottom = 69.94399
+mouse_filter = 2
 
 [node name="Side1" type="BoxContainer" parent="GameBoard" unique_id=723827269]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Side0" type="BoxContainer" parent="GameBoard" unique_id=1543252780]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="StatBlockHolder" type="Node" parent="." unique_id=1619141874]

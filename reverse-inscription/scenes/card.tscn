@@ -103,7 +103,7 @@ offset_left = 1.0
 offset_top = -11.0
 offset_right = 151.0
 offset_bottom = 189.0
-mouse_behavior_recursive = 1
+mouse_filter = 2
 script = ExtResource("1_6u4wf")
 
 [node name="CardName" type="Label" parent="." unique_id=1130430276]
