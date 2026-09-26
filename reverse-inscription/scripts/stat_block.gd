@@ -100,6 +100,7 @@ func set_equipped(equipped: bool) -> void:
 	set_collision_mask_value(2,equipped)
 
 func _on_reset():
+
 	stat_number = max_stat_number
 	draggable = true
 

@@ -99,7 +99,7 @@ func _on_health_checker_area_entered(area: Area2D) -> void:
 			health_block = area
 			set_equipped(HealthChecker,true)
 			# connect the stat update signal to the corresponding stat
-			health_block.update_stat_number_signal.connect(func(value: int): health = value)
+			health_block.update_stat_number_signal.connect(_update_health)
 
 func _on_strength_checker_area_entered(area: Area2D) -> void:
 	# check if the area is a value holding stat block
@@ -110,7 +110,7 @@ func _on_strength_checker_area_entered(area: Area2D) -> void:
 			strength_block = area
 			set_equipped(StrengthChecker,true)
 			# connect the stat update signal to the corresponding stat
-			strength_block.update_stat_number_signal.connect(func(value: int): strength = value)
+			strength_block.update_stat_number_signal.connect(_update_strength)
 
 func _on_ability_checker_area_entered(area: Area2D) -> void:
 	# check if the area is an ability holding stat block
@@ -125,8 +125,8 @@ func _on_health_checker_area_exited(area: Area2D) -> void:
 	# check if the area is the equipped stat block
 	if area == health_block:
 		# disconnect the attached signal
-		if health_block.update_stat_number_signal.is_connected(func(value: int): health = value):
-			health_block.update_stat_number_signal.disconnect(func(value: int): health = value)
+		if health_block.update_stat_number_signal.is_connected(_update_health):
+			health_block.update_stat_number_signal.disconnect(_update_health)
 		# reset stat to 0 and forget block
 		health_block = null
 		set_equipped(HealthChecker,false)
@@ -136,8 +136,8 @@ func _on_strength_checker_area_exited(area: Area2D) -> void:
 	# check if the area is the equipped stat block
 	if area == strength_block:
 		# disconnect the attached signal
-		if strength_block.update_stat_number_signal.is_connected(func(value: int): strength = value):
-			strength_block.update_stat_number_signal.disconnect(func(value: int): strength = value)
+		if strength_block.update_stat_number_signal.is_connected(_update_strength):
+			strength_block.update_stat_number_signal.disconnect(_update_strength)
 		# reset stat to 0 and forget block
 		strength_block = null
 		set_equipped(StrengthChecker,false)
@@ -150,6 +150,13 @@ func _on_ability_checker_area_exited(area: Area2D) -> void:
 		ability_block = null
 		set_equipped(AbilityChecker,false)
 		ability = AbilityLister.AbilityList.NULL
+
+# the following 2 functions manage updating health and strength
+func _update_health(value) -> void:
+	health = value
+
+func _update_strength(value) -> void:
+	strength = value
 
 # function to more cleanly change collision layers on checkers, takes the path and status as arguments
 func set_equipped(node: Area2D,equipped: bool) -> void:
