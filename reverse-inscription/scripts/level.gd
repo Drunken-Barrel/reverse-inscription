@@ -4,6 +4,9 @@ extends Node
 @onready var Side0: BoxContainer = $GameBoard/Side0
 @onready var Side1: BoxContainer = $GameBoard/Side1
 @onready var StatBlockHolder: Node = $StatBlockHolder
+@onready var CombatStarterButton: Button = $ButtonContainer/CombatStarterButton
+@onready var ResetButton: Button = $ButtonContainer/ResetButton
+@onready var ToggleLevelGoalButton: Button = $ButtonContainer/ToggleLevelGoalButton
 
 # variables
 var level: int
@@ -15,11 +18,19 @@ var min_stat_block_x: int
 var min_stat_block_y: int = 100
 var stat_block_spacing: int = 75
 var combat_results: Dictionary[Vector2i,Dictionary]
+var combat_starter_usable = true
+var combat_active = false
+var LevelGoal: PackedScene = preload("uid://crtg47lqvod8e")
+var level_goal_active: bool = false
 
 func _ready() -> void:
 	# connect signals
 	SignalManager.setup_level_signal.connect(_on_level_setup)
 	SignalManager.combat_results_signal.connect(_receive_combat_results)
+	CombatStarterButton.pressed.connect(_on_combat_starter_pressed)
+	ResetButton.pressed.connect(_on_reset_pressed)
+	SignalManager.end_combat_signal.connect(func(): combat_active = false)
+	ToggleLevelGoalButton.pressed.connect(_on_toggle_level_goal_pressed)
 
 func _on_level_setup(_level) -> void:
 	level = _level
@@ -83,3 +94,32 @@ func _check_win() -> void:
 	else:
 		print("lose")
 	combat_results.clear()
+
+func _on_combat_starter_pressed() -> void:
+	# start combat if able
+	if combat_starter_usable:
+		combat_starter_usable = false
+		combat_active = true
+		SignalManager.begin_combat_signal.emit()
+
+func _on_reset_pressed() -> void:
+	if !combat_active:
+		combat_starter_usable = true
+		SignalManager.reset_signal.emit()
+
+func _on_toggle_level_goal_pressed() -> void:
+	# check if there is currently a level goal
+		if !level_goal_active:
+			level_goal_active = true
+			# create a new level goal
+			var NewLevelGoal = LevelGoal.instantiate()
+			NewLevelGoal.level = level
+			add_child(NewLevelGoal)
+			# update the text on the button to match the state
+			ToggleLevelGoalButton.text = "Close level goal"
+		else:
+			level_goal_active = false
+			# remove the pause screen
+			$LevelGoal.queue_free()
+			# update the text on the button to match the state
+			ToggleLevelGoalButton.text = "Open level goal"

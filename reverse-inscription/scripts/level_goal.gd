@@ -3,6 +3,13 @@ extends Control
 # variables
 var dragging = false
 var cursor_offset = Vector2.ZERO
+var level: int
+
+func _ready() -> void:
+	# get the right texture for the current level
+	match level:
+		1:
+			$TextureRect.texture = load("uid://n30ho8l7enow")
 
 func _gui_input(event: InputEvent) -> void:
 	# check if the input was a left click

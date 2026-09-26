@@ -1,9 +1,6 @@
 [gd_scene format=3 uid="uid://c1djtk0ed5wy"]
 
-[ext_resource type="Script" uid="uid://b0k6oywrtutme" path="res://scripts/combat_starter_button.gd" id="1_w7c3h"]
 [ext_resource type="Script" uid="uid://c0b547oguecyw" path="res://scripts/level.gd" id="1_w8frs"]
-[ext_resource type="Script" uid="uid://bm5yxwfb4kkiy" path="res://scripts/stat_block_reset_button.gd" id="2_w8frs"]
-[ext_resource type="Script" uid="uid://cm701afmhwkoe" path="res://scripts/toggle_level_goal_button.gd" id="4_mx8sn"]
 
 [node name="Level" type="Node" unique_id=1520027210]
 script = ExtResource("1_w8frs")
@@ -17,17 +14,14 @@ offset_bottom = 53.0
 [node name="CombatStarterButton" type="Button" parent="ButtonContainer" unique_id=849683326]
 layout_mode = 2
 text = "Begin combat"
-script = ExtResource("1_w7c3h")
 
-[node name="StatBlockResetButton" type="Button" parent="ButtonContainer" unique_id=1998485309]
+[node name="ResetButton" type="Button" parent="ButtonContainer" unique_id=1998485309]
 layout_mode = 2
-text = "Reset stat blocks"
-script = ExtResource("2_w8frs")
+text = "Reset"
 
 [node name="ToggleLevelGoalButton" type="Button" parent="ButtonContainer" unique_id=1921267491]
 layout_mode = 2
 text = "Open level goal"
-script = ExtResource("4_mx8sn")
 
 [node name="GameBoard" type="VBoxContainer" parent="." unique_id=1632491723]
 anchors_preset = -1

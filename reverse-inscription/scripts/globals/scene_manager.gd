@@ -54,7 +54,7 @@ func _process(_delta: float) -> void:
 func _input(event):
 	if event.is_action_pressed("ui_escape"):
 		# check if there is currently a pause screen active
-		if !pause_screen_active:
+		if !has_node("PauseScreen"):
 			pause_screen_active = true
 			# create a pause screen
 			var NewPauseScreen = PauseScreen.instantiate()

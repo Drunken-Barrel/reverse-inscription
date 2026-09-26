@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bl0jxxiekg0nr"]
 
-[ext_resource type="Script" uid="uid://5cvem7onj3pa" path="res://scripts/exit_area_button.gd" id="1_qeunj"]
-[ext_resource type="Script" uid="uid://5w003d4n3rh7" path="res://scripts/exit_game_button.gd" id="2_hr2n2"]
+[ext_resource type="Script" uid="uid://c4qrho67vqph0" path="res://scripts/pause_screen.gd" id="1_hr2n2"]
 
 [node name="PauseScreen" type="CanvasLayer" unique_id=1849511542]
+script = ExtResource("1_hr2n2")
 
 [node name="Panel" type="Panel" parent="." unique_id=747937840]
 anchors_preset = 15
@@ -28,9 +28,7 @@ grow_vertical = 2
 [node name="ExitAreaButton" type="Button" parent="VBoxContainer" unique_id=91305156]
 layout_mode = 2
 text = "Exit Area"
-script = ExtResource("1_qeunj")
 
 [node name="ExitGameButton" type="Button" parent="VBoxContainer" unique_id=1998648040]
 layout_mode = 2
 text = "Exit Game"
-script = ExtResource("2_hr2n2")
